@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import App from './App.vue';
-// import axios from './store/config/axios-auth';
 
 import router from './router';
 import store from './store/store';

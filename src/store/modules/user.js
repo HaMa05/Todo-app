@@ -27,7 +27,6 @@ export default {
       });
     },
     async signup(_, user) {
-      console.log(user);
       return new Promise((resolve, reject) => {
         axios
           .post('/auth/register', user)

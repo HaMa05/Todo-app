@@ -31,7 +31,6 @@ export default {
           })
           .then((res) => {
             commit('setTasks', res.data.items);
-            console.log(res);
             resolve(res.data);
           })
           .catch((err) => {

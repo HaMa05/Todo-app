@@ -85,7 +85,6 @@ export default {
   },
   mounted() {
     this.$store.dispatch('task/getTasks');
-    console.log(123);
   },
   computed: {
     ...mapGetters({ getCategories: 'category/getCategories' }),

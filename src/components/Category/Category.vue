@@ -55,7 +55,6 @@ export default {
       if (value) {
         const displayNotification = setTimeout(() => {
           this.isActiveNoti = false;
-          // console.log(1);
           clearTimeout(displayNotification);
         }, 4000);
       }
