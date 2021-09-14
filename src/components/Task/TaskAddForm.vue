@@ -45,10 +45,10 @@ export default {
   methods: {
     closePopup() {
       this.resetValue();
-      this.$emit('close-popup');
+      this.$emit('closePopup');
     },
     addTask() {
-      this.$emit('add-item', { title: this.taskName, categoryIds: this.checkCategories });
+      this.$emit('addItem', { title: this.taskName, categoryIds: this.checkCategories });
       this.closePopup();
     },
     resetValue() {
@@ -58,5 +58,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

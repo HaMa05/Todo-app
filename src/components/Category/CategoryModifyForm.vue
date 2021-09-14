@@ -20,7 +20,6 @@
             v-model="categoryName"
           />
         </div>
-        <!-- <span class="fs-6" :class="{ 'error-text': isUserError }">{{ userErrorText }}</span> -->
       </div>
       <div class="form-group d-flex justify-content-center mt-4">
         <button type="submit" class="btn btn-warning">Sửa danh mục</button>
@@ -52,10 +51,10 @@ export default {
   methods: {
     closePopup() {
       this.categoryName = '';
-      this.$emit('close-popup');
+      this.$emit('closePopup');
     },
     modifyCategory() {
-      this.$emit('modify-name', {
+      this.$emit('modifyName', {
         id: this.item.id,
         name: this.categoryName,
       });
@@ -64,5 +63,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

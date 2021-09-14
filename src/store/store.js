@@ -1,22 +1,22 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import userModel from './modules/user';
-import categoryModel from './modules/category';
-import taskModel from './modules/task';
+import user from './modules/user';
+import category from './modules/category';
+import task from './modules/task';
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
   modules: {
-    user: userModel,
-    category: categoryModel,
-    task: taskModel,
+    user,
+    category,
+    task,
   },
 });
 
 const token = window.localStorage.getItem('token');
 if (token) {
-  store.commit('setToken', { token });
+  store.commit('user/setToken', { token });
 }
 
 export default store;

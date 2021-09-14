@@ -1,4 +1,4 @@
-import axios from '../config/axios-auth';
+import axios from "../config/axios-auth";
 
 export default {
   namespaced: true,
@@ -26,11 +26,11 @@ export default {
     async getTasks({ commit }, query) {
       return new Promise((resolve, reject) => {
         axios
-          .get('/api/tasks', {
+          .get("/api/tasks", {
             params: query,
           })
           .then((res) => {
-            commit('setTasks', res.data.items);
+            commit("setTasks", res.data.items);
             resolve(res.data);
           })
           .catch((err) => {
@@ -41,9 +41,9 @@ export default {
     async createTask({ commit }, task) {
       return new Promise((resolve, reject) => {
         axios
-          .post('api/tasks', task)
+          .post("api/tasks", task)
           .then((res) => {
-            commit('addTask', res.data);
+            commit("addTask", res.data);
             resolve(res);
           })
           .catch((err) => {
@@ -56,8 +56,8 @@ export default {
         axios
           .patch(`api/tasks/${id}`, task)
           .then((res) => {
-            commit('getIndexTask', id);
-            commit('replaceTasks', { task: res.data });
+            commit("getIndexTask", id);
+            commit("replaceTasks", { task: res.data });
             resolve(res);
           })
           .catch((err) => {
@@ -77,11 +77,6 @@ export default {
             reject(err);
           });
       });
-    },
-  },
-  getters: {
-    getTasksValue(state) {
-      return state.tasks;
     },
   },
 };

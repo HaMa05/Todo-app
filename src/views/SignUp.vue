@@ -31,48 +31,18 @@
 </template>
 
 <script>
+import { formFieldMixin } from '../mixins/formFieldMixin';
 import Notification from '../components/Notification/Notification.vue';
 export default {
-  components: { Notification },
+  mixins: [formFieldMixin],
   name: 'SignUp',
+  components: { Notification },
   data() {
     return {
-      username: '',
-      password: '',
-      userErrorText: '',
-      isUserError: false,
-      passErrorText: '',
-      isPassError: false,
-      isActiveNoti: false,
-      backgroundNoti: 'success',
-      textNoti: null,
       isSignup: false,
     };
   },
   watch: {
-    username(value) {
-      if (!value || value.trim().length === 0) {
-        this.userErrorText = 'Không được để trống';
-        this.isUserError = true;
-      } else {
-        this.userErrorText = '';
-        this.isUserError = false;
-      }
-    },
-
-    password(value) {
-      if (!value || value.trim().length === 0) {
-        this.passErrorText = 'Không được để trống';
-        this.isPassError = true;
-      } else if (!this.passInvalid(value)) {
-        this.passErrorText = 'Mật khẩu tối thiếu 8 ký tự gồm: a-z, A-Z, 0-9';
-        this.isPassError = true;
-      } else {
-        this.passErrorText = '';
-        this.isPassError = false;
-      }
-    },
-
     isActiveNoti(value) {
       if (value) {
         const displayNotification = setTimeout(() => {
@@ -98,18 +68,6 @@ export default {
         .catch(() => {
           this.setAttriNoti('danger', 'Đăng ký tài khoản thất bại');
         });
-    },
-    passInvalid(pass) {
-      const regPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,32}$/;
-      return regPass.test(pass);
-    },
-    setAttriNoti(bg, text) {
-      this.isActiveNoti = true;
-      this.backgroundNoti = bg;
-      this.textNoti = text;
-    },
-    resetAttrNoti() {
-      this.isActiveNoti = false;
     },
   },
 };

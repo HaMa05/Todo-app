@@ -13,8 +13,8 @@
           :key="category.id"
           :title="category.name"
           :id="category.id"
-          @modify-item="$emit('modify-item', $event)"
-          @delete-item="$emit('delete-item', $event)"
+          @modifyItem="$emit('modifyItem', $event)"
+          @deleteItem="$emit('deleteItem', $event)"
         />
       </tbody>
     </table>
@@ -38,5 +38,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

@@ -1,7 +1,8 @@
 import axios from 'axios';
+import store from '../store';
 
 const instance = axios.create({
-  baseURL: process.env.API_URL,
+  baseURL: 'https://mvn-task-manager.work',
   timeout: 100000,
   headers: {
     'Content-Type': 'application/json',
@@ -11,12 +12,12 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    let token = window.localStorage.getItem('token');
+    const { token } = store.state.user;
     config.headers.Authorization = `Bearer ${token}`;
     return config;
   },
   (error) => {
-    throw new Error(error);
+    return error;
   }
 );
 instance.interceptors.response.use(
@@ -24,7 +25,7 @@ instance.interceptors.response.use(
     return res;
   },
   (error) => {
-    throw new Error(error);
+    return error;
   }
 );
 

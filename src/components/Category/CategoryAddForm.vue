@@ -20,10 +20,9 @@
             v-model="categoryName"
           />
         </div>
-        <!-- <span class="fs-6" :class="{ 'error-text': isUserError }">{{ userErrorText }}</span> -->
       </div>
       <div class="form-group d-flex justify-content-center mt-4">
-        <button type="button" class="btn btn-success">Thêm danh mục</button>
+        <button type="submit" class="btn btn-success">Thêm danh mục</button>
       </div>
     </form>
   </div>
@@ -39,10 +38,10 @@ export default {
   methods: {
     closePopup() {
       this.categoryName = '';
-      this.$emit('close-popup');
+      this.$emit('closePopup');
     },
     addCategory() {
-      this.$emit('add-item', this.categoryName);
+      this.$emit('addItem', this.categoryName);
       this.closePopup();
     },
   },

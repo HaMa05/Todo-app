@@ -18,8 +18,8 @@
           :status="task.status"
           :categories="task.categories"
           :categoryNode="categoryNode"
-          @modify-item="$emit('modify-item', $event)"
-          @delete-item="$emit('delete-item', $event)"
+          @modifyItem="$emit('modifyItem', $event)"
+          @deleteItem="$emit('deleteItem', $event)"
         />
       </tbody>
     </table>
@@ -60,5 +60,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

@@ -31,47 +31,13 @@
 </template>
 
 <script>
+import { formFieldMixin } from '../mixins/formFieldMixin';
 import Notification from '../components/Notification/Notification.vue';
 export default {
-  components: { Notification },
+  mixins: [formFieldMixin],
   name: 'Login',
-  data() {
-    return {
-      username: '',
-      password: '',
-      userErrorText: '',
-      isUserError: false,
-      passErrorText: '',
-      isPassError: false,
-      isActiveNoti: false,
-      backgroundNoti: 'success',
-      textNoti: null,
-    };
-  },
+  components: { Notification },
   watch: {
-    username(value) {
-      if (!value || value.trim().length === 0) {
-        this.userErrorText = 'Không được để trống';
-        this.isUserError = true;
-      } else {
-        this.userErrorText = '';
-        this.isUserError = false;
-      }
-    },
-
-    password(value) {
-      if (!value || value.trim().length === 0) {
-        this.passErrorText = 'Không được để trống';
-        this.isPassError = true;
-      } else if (!this.passInvalid(value)) {
-        this.passErrorText = 'Mật khẩu tối thiếu 8 ký tự gồm: a-z, A-Z, 0-9';
-        this.isPassError = true;
-      } else {
-        this.passErrorText = '';
-        this.isPassError = false;
-      }
-    },
-
     isActiveNoti(value) {
       if (value) {
         const displayNotification = setTimeout(() => {
@@ -85,25 +51,16 @@ export default {
     async submitData() {
       const { username, password } = this;
       await this.$store
-        .dispatch('login', { username, password })
+        .dispatch('user/login', { username, password })
         .then(() => {
           this.setAttriNoti('success', 'Đăng nhập tài khoản thành công');
         })
         .catch(() => {
           this.setAttriNoti('danger', 'Đăng nhập tài khoản thất bại');
         });
-      if (this.$store.getters.getToken) {
+      if (this.$store.state.user.token) {
         this.$router.push('/');
       }
-    },
-    passInvalid(pass) {
-      const regPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,32}$/;
-      return regPass.test(pass);
-    },
-    setAttriNoti(bg, text) {
-      this.isActiveNoti = true;
-      this.backgroundNoti = bg;
-      this.textNoti = text;
     },
   },
 };
