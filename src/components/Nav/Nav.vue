@@ -28,8 +28,8 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.dispatch('logout');
-      if (!this.$store.getters.getToken) {
+      this.$store.dispatch('user/logout');
+      if (!this.$store.state.user.token) {
         this.$router.push('/login');
       }
     },
@@ -39,5 +39,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

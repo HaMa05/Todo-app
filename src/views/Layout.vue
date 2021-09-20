@@ -8,14 +8,14 @@
 </template>
 
 <script>
-import Nav from '../components/Nav/Nav.vue';
+import Nav from "../components/Nav/Nav.vue";
 export default {
   components: {
     Nav,
   },
   computed: {
     token() {
-      return this.$store.getters.getToken;
+      return this.$store.state.user.token;
     },
   },
 };

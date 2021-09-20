@@ -9,13 +9,19 @@ export default {
   props: {
     isActive: {
       type: Boolean,
-      required: false,
+      required: true,
       default: false,
     },
     background: {
       type: String,
-      required: false,
+      required: true,
       default: 'success',
+      validator: function (value) {
+        if (value === 'success' || value === 'warning' || value === 'danger') {
+          return true;
+        }
+        return false;
+      },
     },
     text: {
       type: String,

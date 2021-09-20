@@ -11,7 +11,7 @@ export default {
     },
   },
   actions: {
-    async getCategories({ commit }) {
+    getCategories({ commit }) {
       return new Promise((resolve, reject) => {
         axios
           .get('/api/categories')
@@ -24,7 +24,7 @@ export default {
           });
       });
     },
-    async createCategory(_, { name }) {
+    createCategory(_, { name }) {
       return new Promise((resolve, reject) => {
         axios
           .post('api/categories', {
@@ -38,7 +38,7 @@ export default {
           });
       });
     },
-    async modifyCategory(_, { id, name }) {
+    modifyCategory(_, { id, name }) {
       return new Promise((resolve, reject) => {
         axios
           .patch(`api/categories/${id}`, {
@@ -52,7 +52,7 @@ export default {
           });
       });
     },
-    async deleteCategory(_, id) {
+    deleteCategory(_, id) {
       return new Promise((resolve, reject) => {
         axios
           .delete(`api/categories/${id}`)
@@ -63,11 +63,6 @@ export default {
             reject(err);
           });
       });
-    },
-  },
-  getters: {
-    getCategories(state) {
-      return state.categories;
     },
   },
 };

@@ -21,7 +21,7 @@
 <script>
 import Paginate from 'vuejs-paginate';
 export default {
-  name: 'Paging',
+  name: 'Pagination',
   components: { Paginate },
   props: {
     totalPages: {
@@ -40,9 +40,6 @@ export default {
       },
     },
   },
-  created() {
-    console.log(`${this.link} ==== ${this.totalPages}`);
-  },
   methods: {
     functionName(page) {
       const { query } = this.$route;
@@ -56,5 +53,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

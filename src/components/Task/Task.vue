@@ -2,7 +2,7 @@
   <div class="container">
     <header class="d-flex justify-content-between">
       <h2 class="title fw-bold">Công việc</h2>
-      <button type="button" class="btn btn-success" @click="btnAdd">Thêm công việc</button>
+      <button type="button" class="btn btn-success" @click="handleCreateTask">Thêm công việc</button>
     </header>
     <div class="d-flex align-items-center w-100 mt-2">
       <form class="d-flex w-75">
@@ -23,16 +23,18 @@
       </select>
     </div>
     <div>
-      <task-list v-if="filterTask.length > 0" :tasks="filterTask" @delete-item="deleteBtn" @modify-item="modifyBtn" />
+      <task-list v-if="filterTask.length" :tasks="filterTask" @deleteItem="handleDeleteCategory" @modifyItem="handleModifyCategory" />
       <div v-else class="no-content w-50 mx-auto mt-3">
         <img class="img-fluid" src="../../assets/images/noContent.svg" alt="No Content" />
       </div>
     </div>
-    <div v-show="componentName === 'task-add-form'" class="position-absolute popup">
-      <task-add-form @close-popup="closePopup" @add-item="addItem" :categories="getCategories" />
-    </div>
-    <div v-show="componentName === 'task-modify-form'" class="position-absolute popup">
-      <task-modify-form @close-popup="closePopup" :item="itemTask" @modify-name="modifyName" :categories="getCategories" />
+    <div>
+      <div v-if="componentName === 'task-add-form'" key="task-add-form" class="position-absolute popup">
+        <task-add-form @closePopup="closePopup" @addItem="addItem" :categories="categories" />
+      </div>
+      <div v-else-if="componentName === 'task-modify-form'" key="task-modify-form" class="position-absolute popup">
+        <task-modify-form @closePopup="closePopup" :item="itemTask" @modifyName="modifyName" :categories="categories" />
+      </div>
     </div>
     <notification :isActive="isActiveNoti" :background="backgroundNoti" :text="textNoti" />
     <paging v-if="totalPages" :link="links" :totalPages="totalPages" @change-page="chagnePage" />
@@ -40,7 +42,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 import TaskAddForm from './TaskAddForm.vue';
 import TaskList from './TaskList.vue';
 import TaskModifyForm from './TaskModifyForm.vue';
@@ -87,7 +89,7 @@ export default {
     this.$store.dispatch('task/getTasks');
   },
   computed: {
-    ...mapGetters({ getCategories: 'category/getCategories' }),
+    ...mapState('category', ['categories']),
     filterTask() {
       if (!this.tasks) {
         return [];
@@ -95,7 +97,7 @@ export default {
       if (!this.taskName) {
         return this.tasks;
       } else {
-        let newTask = this.tasks.filter((el) => {
+        const newTask = this.tasks.filter((el) => {
           const attr = this.filterName ? this.filterName : 'title';
           if (!this.taskName) {
             return el;
@@ -126,14 +128,14 @@ export default {
         },
       });
     },
-    btnAdd() {
+    handleCreateTask() {
       this.componentName = 'task-add-form';
     },
     closePopup() {
       this.componentName = null;
       this.itemTask = null;
     },
-    modifyBtn(id) {
+    handleModifyCategory(id) {
       this.componentName = 'task-modify-form';
       this.itemTask = this.tasks.find((el) => el.id === id);
     },
@@ -162,7 +164,7 @@ export default {
           this.setAttriNoti('warning', 'Hệ thống lỗi, vui lòng thực hiện lại.');
         });
     },
-    deleteBtn(id) {
+    handleDeleteCategory(id) {
       this.$store
         .dispatch('task/deleteTask', id)
         .then(async () => {

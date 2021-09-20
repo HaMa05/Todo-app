@@ -1,35 +1,40 @@
-import axios from '../config/axios-auth';
+import axios from "../config/axios-auth";
 
 export default {
+  namespaced: true,
   state: {
     token: null,
   },
   mutations: {
     setToken(state, payload) {
       state.token = payload.token;
-      window.localStorage.setItem('token', state.token);
+      window.localStorage.setItem("token", state.token);
     },
     removeToken(state) {
-      state.token = '';
-      window.localStorage.removeItem('token');
+      state.token = "";
+      window.localStorage.removeItem("token");
     },
   },
   actions: {
     async login({ commit }, user) {
       return new Promise((resolve, reject) => {
         axios
-          .post('/auth/login', user)
+          .post("/auth/login", user)
           .then((res) => {
-            commit('setToken', res.data);
+            console.log(res);
+            commit("setToken", res.data);
             resolve(true);
           })
-          .catch((err) => reject(err));
+          .catch((err) => {
+            console.log(err);
+            reject(err);
+          });
       });
     },
     async signup(_, user) {
       return new Promise((resolve, reject) => {
         axios
-          .post('/auth/register', user)
+          .post("/auth/register", user)
           .then((res) => {
             resolve(res);
           })
@@ -37,12 +42,7 @@ export default {
       });
     },
     async logout({ commit }) {
-      commit('removeToken');
-    },
-  },
-  getters: {
-    getToken(state) {
-      return state.token;
+      commit("removeToken");
     },
   },
 };

@@ -48,24 +48,26 @@ export default {
       },
     },
   },
-  watch: {
-    item(value) {
-      if (value) {
-        value.categories.forEach((el) => {
-          this.checkCategories.push(el.id);
-        });
-        this.taskName = value.title;
-      }
-    },
+  created() {
+    if (this.item) {
+      this.item.categories.forEach((el) => {
+        this.checkCategories.push(el.id);
+      });
+      this.taskName = this.item.title;
+    }
   },
   methods: {
     closePopup() {
       this.resetValue();
-      this.$emit('close-popup');
+      this.$emit('closePopup');
     },
     modifyTask() {
-      const task = { title: this.taskName, categoryIds: this.checkCategories, status: this.item.status };
-      this.$emit('modify-name', { id: this.item.id, task });
+      const task = {
+        title: this.taskName,
+        categoryIds: this.checkCategories,
+        status: this.item.status,
+      };
+      this.$emit('modifyName', { id: this.item.id, task });
       this.closePopup();
     },
     resetValue() {
@@ -75,5 +77,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

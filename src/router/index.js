@@ -27,11 +27,17 @@ const routes = [
     path: '/category',
     name: 'Category',
     component: Category,
+    meta: {
+      hasAuthorize: true,
+    },
   },
   {
     path: '/task',
     name: 'Task',
     component: Task,
+    meta: {
+      hasAuthorize: true,
+    },
   },
 ];
 
@@ -43,13 +49,18 @@ const router = new VueRouter({
 
 router.beforeEach(function (to, _, next) {
   const { token } = store.state.user;
-  const publicPages = ['/login', '/register'];
-  const authRequired = !publicPages.includes(to.path);
-  if (authRequired && !token) {
-    return next('/login');
+  const hasAuthorize = to.meta.hasAuthorize;
+  if (to.name !== 'Login' && !token && !hasAuthorize) {
+    next({
+      name: 'Login',
+    });
+  } else if (to.name === 'Login' && token) {
+    next('/');
+  } else if (to.name === 'SignUp' && token) {
+    next('/');
+  } else {
+    next();
   }
-
-  next();
 });
 
 export default router;

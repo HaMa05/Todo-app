@@ -14,8 +14,8 @@
     </td>
     <td class="text-right">
       <div>
-        <button type="button" class="btn btn-warning mr-3" @click="$emit('modify-item', id)">Sửa</button>
-        <button type="button" class="btn btn-danger" @click="$emit('delete-item', id)">Xóa</button>
+        <button type="button" class="btn btn-warning mr-3" @click="$emit('modifyItem', id)">Sửa</button>
+        <button type="button" class="btn btn-danger" @click="$emit('deleteItem', id)">Xóa</button>
       </div>
     </td>
   </tr>
@@ -65,5 +65,3 @@ export default {
   },
 };
 </script>
-
-<style></style>
